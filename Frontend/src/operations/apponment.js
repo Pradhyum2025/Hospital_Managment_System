@@ -13,7 +13,7 @@ export const createNewAppoinment = async (dispatch, navigate, apponmentData) => 
     const res = await axiosInstance.post(`/appoinment`, apponmentData);
     dispatch(fetchSliceAction.deserializeFetching())
     if (res.data && res.data.success) {
-      console.log("CREATE APPOINMENT RESPONSE --->>>", res)
+      // console.log("CREATE APPOINMENT RESPONSE --->>>", res)
       toast.success(res?.data?.message, {
         style: {
           background: '#001a00',
@@ -73,7 +73,7 @@ export const ScheduleAppoinment = async (dispatch,appoinmentId, updatedData, set
     const res = await axiosInstance.patch(`/appoinment/schedule/${appoinmentId}`, updatedData);
     dispatch(fetchSliceAction.deserializeFetching())
     if (res.data && res.data.success) {
-      console.log("SCHEDULE APPOINMENT RESPONSE --->>>", res) 
+      // console.log("SCHEDULE APPOINMENT RESPONSE --->>>", res) 
       dispatch(appointmentSliceAction.scheduleAppoinment(res.data.savedAppointment))
       toast.success(res?.data?.message, {
         style: {

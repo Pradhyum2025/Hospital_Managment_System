@@ -85,8 +85,6 @@ export const AppointmentCard = ({ appointment }) => {
       return chnageAppoinmentStatus(dispatch, appointment._id, statusValue, setIsStatusEditing);
     }
   }
-  const statusOptions = ["completed", "cancelled"];
-
   return (
     <div className="max-w-3xl mx-auto p-4">
       <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -257,7 +255,7 @@ export const AppointmentCard = ({ appointment }) => {
                 <p className="font-medium">{appointment.doctor?.firstName + " " + appointment.doctor?.lastName}</p>
               </div>
             </div>
-            {appointment.status !== 'inProgress' &&
+            
               <div className="flex items-center space-x-3">
                 <FaMapMarkerAlt className="text-blue-500 text-xl" />
                 <div>
@@ -275,7 +273,7 @@ export const AppointmentCard = ({ appointment }) => {
                 </div>
 
               </div>
-            }
+          
             {/* Notes */}
 
             <div className="flex items-center space-x-3">
@@ -284,7 +282,7 @@ export const AppointmentCard = ({ appointment }) => {
               }
               <div>
                 {notes &&
-                  <p className="text-sm text-gray-500">Leave not for patient</p>
+                  <p className="text-sm text-gray-500">Leave a note for patient</p>
                 }
                 {isEditing && loggedInUser.role == 'doctor' ? (
                   <textarea

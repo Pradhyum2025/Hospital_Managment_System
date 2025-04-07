@@ -9,7 +9,7 @@ const appointmentSlice = createSlice({
     },
     scheduleAppoinment : (state, action) => {
       return state.map(appoinment=>{
-        if(appoinment._id=action.payload._id){
+        if(appoinment._id===action.payload._id){
           return action.payload
         }else{
           return appoinment
@@ -17,16 +17,15 @@ const appointmentSlice = createSlice({
       })
   }
   ,
-  setApponmentStatus : (state, action) => {
-    console.log(action.payload)
-    return state.map(appoinment=>{
-      if(appoinment._id=action.payload.appoinmentId){
-        return {...appoinment,status:action.payload.statusValue};
-      }else{
-        return appoinment
+  setApponmentStatus: (state, action) => {
+    const { appoinmentId, statusValue } = action.payload;
+    return state.map(app => {
+      if (app._id === appoinmentId) {
+        return { ...app, status: statusValue };
       }
-    })
-}
+      return app;
+    });
+  }
 
   
 }

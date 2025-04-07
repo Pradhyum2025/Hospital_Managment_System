@@ -24,17 +24,8 @@ function UserAppointment() {
             <p className="text-center text-gray-500">No appointments found.</p>
           ) : (
             myAppoinmants.map((appointment, index) => {
-              const formattedDate = new Date(appointment.appointmentDate).toLocaleString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              });
-
               return (
-               <AppointmentCard appointment={appointment}/>
+               <AppointmentCard key={index} appointment={appointment}/>
               );
             })
           )}

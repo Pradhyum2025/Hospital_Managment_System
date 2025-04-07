@@ -12,7 +12,7 @@ export const updateProfile = async (dispatch, setIsEditing,updatedData) => {
     const res = await axiosInstance.patch(`/user/profile-update`,updatedData);
     dispatch(fetchSliceAction.deserializeFetching())
     if (res.data && res.data.success) {
-      console.log("Update Profile RESPONSE --->>>", res);
+      // console.log("Update Profile RESPONSE --->>>", res);
       //save user info into local storage
       window.localStorage.setItem('currUser', JSON.stringify(res.data.updatedUser));
       dispatch(authSliceAction.setUserData(res.data.updatedUser))

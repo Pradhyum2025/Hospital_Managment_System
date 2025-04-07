@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhone, FaEnvelope, FaMapMarkerAlt, FaRegHospital } from "react-icons/fa";
-import {Link, useLocation} from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { RiHospitalFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 export const Navbar = () => {
+  const loggedInUser = useSelector(store => store.auth);
   const currPath = useLocation().pathname;
   const [isOpen, setIsOpen] = useState(false);
- const currUser= useSelector(store=>store.auth);
+  const currUser = useSelector(store => store.auth);
+  const navigate = useNavigate();
   const navItems = [
     { name: "Services", link: "#" },
     { name: "Doctors", link: "#" },
@@ -15,11 +17,19 @@ export const Navbar = () => {
   ];
 
   const handleNavigateLogin = () => {
-    setIsOpen(()=>!isOpen)
+    setIsOpen(() => !isOpen)
     if (currPath === '/signup') {
       navigate('/');
     }
     return document.getElementById('my_modal_3').showModal();
+  }
+
+  const handleNavigateAppoi = () => {
+    if (loggedInUser?.email) {
+      return navigate('/user-dashboard');
+    } else {
+      return document.getElementById('my_modal_3').showModal();
+    }
   }
 
   return (
@@ -27,35 +37,49 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-          <FaRegHospital className="text-2xl text-blue-600"/>
+            <FaRegHospital
+            onClick={()=>navigate('/')}
+             className="text-2xl text-blue-600 cursor-pointer" />
           </div>
 
           <div className="hidden md:flex gap-x-10 items-center space-x-0">
             {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.link}
+              < >
+                {item.name === 'Appointments' ?
+                  <p
+                    className="text-gray-700 hover:text-blue-600 px-1 w-full py-2 rounded-md text-sm font-medium cursor-pointer"
+                    onClick={handleNavigateAppoi}>
+                    {item.name}
+                  </p>
+                  :
+                  <Link
+                    key={item.name}
+                    to={item.link}
 
-                className="text-gray-700 hover:text-blue-600 px-1 w-full py-2 rounded-md text-sm font-medium"
-              >
-                {item.name}
-              </Link>
+                    className="text-gray-700 hover:text-blue-600 px-1 w-full py-2 rounded-md text-sm font-medium"
+                  >
+                    {item.name}
+                  </Link>
+                }
+              </>
             ))}
           </div>
 
           <div className="flex items-center justify-end space-x-4 w-full md:w-[40%]">
-            {currUser?.email?
-            <Link  to={'/user-dashboard'} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-              Account
-            </Link>
-            :
-            <button  onClick={handleNavigateLogin} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-              Login
-            </button>
+            {currUser?.email ?
+              <Link to={'/user-dashboard'} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Account
+              </Link>
+              :
+              <>
+                <button onClick={handleNavigateLogin} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                  Login
+                </button>
+                <button onClick={() => navigate('/signup')} className={` ${currPath=='/signup'?'hidden':'flex'} bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700`} >
+                  SignUp
+                </button>
+              </>
             }
-            <button className="hidden md:flex bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
-              Emergency Contact
-            </button>
           </div>
 
           <div className="-mr-2 flex md:hidden">
@@ -75,22 +99,13 @@ export const Navbar = () => {
             {navItems.map((item) => (
               <Link
                 key={item.name}
-                onClick={()=>setIsOpen(false)}
+                onClick={() => setIsOpen(false)}
                 to={item.link}
                 className="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium"
               >
                 {item.name}
               </Link>
             ))}
-            
-            <div className="flex items-center space-x-4">
-            <button
-            onClick={() => setIsOpen(!isOpen)}
-             className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
-              Emergency Contact
-            </button>
-          </div>
-
           </div>
         </div>
       )}

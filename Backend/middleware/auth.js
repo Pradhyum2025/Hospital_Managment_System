@@ -22,8 +22,7 @@ export const isAuth = (req,res,next)=>{
     let payload={};
     try{
       payload = jwt.verify(token,process.env.JWT_SECRET);
-      
-      // console.log('payload',payload)
+    
     }catch(err){
       console.log("Verify JWT Token Error : ",err.message); 
       return res.status(400).json({
@@ -113,4 +112,27 @@ export const isNurse = (req,res,next)=>{
     })
   }
 }
+
+// check user is seller or NOT
+export const isPatientOrDoctor = (req,res,next)=>{
+  
+  try{
+    let payload = req.user;
+    if(payload.role!=='patient' &&  payload.role!=='doctor'){
+      return res.status(401).json({
+        success:false,
+        message:'Protected route for nurse'
+      })
+    }
+    return next();
+
+  }catch(error){
+    console.log("nurse  middleware error ",error.message)
+    return res.status(500).json({
+      success:false,
+      message:'Somethin Went Wrong'
+    })
+  }
+}
+
 
