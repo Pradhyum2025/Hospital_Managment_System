@@ -6,10 +6,10 @@
 #Backend Command ----->> npm run dev
 
 
-env Variables -------- >>
+#env Variables -------- >>
 
 
-PORT = 8080
-MONGODB_URL= Your_mongoDB_connection_string
-JWT_SECRET ='23dfhsfbsm53487' #random
+#PORT = 8080
+#MONGODB_URL= Your_mongoDB_connection_string
+#JWT_SECRET ='23dfhsfbsm53487' #random
 
