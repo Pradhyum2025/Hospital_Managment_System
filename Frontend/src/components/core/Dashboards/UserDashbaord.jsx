@@ -76,11 +76,13 @@ const Navbar = ({ toggleSidebar }) => {
             <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
           </button>
           <div className="flex items-center space-x-2">
+            <Link to={'/user-dashboard/profile'}>
             <img
               src={loggedInUser?.profileImage || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?fit=crop&w=40&h=40"}
               alt="User"
               className="h-8 w-8 rounded-full"
             />
+            </Link>
             <div className="hidden md:block">
               <p className="text-sm font-medium">{loggedInUser.firstName+ " "+ loggedInUser.lastName}</p>
               <p className="text-xs text-gray-500">{loggedInUser.role}</p>

@@ -3,7 +3,5 @@
 @plugin "daisyui";
 
 @theme{
-  --fontFamily:{
-    underDog:'underDog', 'system-ui';
-  }
+  --font-underDog:'underDog', 'system-ui';
 }
